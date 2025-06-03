@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+<!-- Logout Button -->
+<div class="container mt-3 text-end">
+  <a href="/login/" class="btn btn-danger">Logout</a>
+</div>
+
+<!-- Recipe Form -->
+<div class="container my-5">
+  <div class="card shadow p-4 mx-auto" style="max-width: 700px;">
+    <h3 class="text-center mb-4">Add Recipe</h3>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Recipe Name</label>
+        <input type="text" name="name_r" class="form-control" placeholder="Enter recipe name" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="dis_r" class="form-control" rows="3" placeholder="Enter description" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Recipe Image</label>
+        <input type="file" name="image" class="form-control" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Add Recipe</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Recipes Table -->
+<div class="container my-5">
+  <h4 class="mb-4 text-center">Your Recipes</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Sr. No.</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Delete</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recipie in recipies %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ recipie.name_r }}</td>
+          <td>{{ recipie.dis_r }}</td>
+          <td>
+            <img src="/media/{{ recipie.image }}" alt="Recipe Image" style="height: 120px; object-fit: cover;">
+          </td>
+          <td>
+            <a href="/delete/{{ recipie.id }}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+          <td>
+            <a href="/update/{{ recipie.id }}" class="btn btn-success btn-sm">Update</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

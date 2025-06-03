@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block start %}
+    <a href="/about/">
+        about
+    </a>
+    <a href="/help/">
+        help
+    </a>
+
+    <h1>the server worked!</h1>
+
+    {{peoples}}
+    
+    <table style="border: 2px solid black; border-collapse: collapse; width: 100%; text-align: center;" >
+  <tr>
+    <th>Sr.no</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Can vote</th>
+  </tr>
+
+  {% for people in peoples %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{people.name}}</td>
+    <td>{{people.age}}</td>
+    <td>
+
+    {% if people.age >= 18 %}
+    👍
+    {% else %}
+    <p style="color: red;">cant vote</p>
+
+    {% endif %}
+    </td>
+  </tr>
+
+  {% endfor %}
+  </table>
+
+  <p>
+    {{vages}}
+
+    {% if "tomato" in vages %}
+    <p> yes tomato is in the list <p>
+        {% elif "sabji" in vages %}
+        <p>present in list</p>
+    {% else %}
+    <p>not present the tomato</p>
+    {% endif %}
+  </p>
+
+{% endblock %}
